@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Xime 💖 | Una Carta De Mi Corazón 🇲🇽</title>
+    <meta name="description"
+        content="Una carta interactiva llena de amor para celebrar nuestro primer mes de novios y un mes desde nuestro verano en México.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Fredoka:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Link Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Welcome Splash Screen to satisfy Autoplay requirements beautifully -->
+    <div class="welcome-splash" id="welcomeSplash">
+        <div class="splash-card">
+            <div class="splash-stamp">
+                <svg viewBox="0 0 100 100" class="splash-heart-icon">
+                    <path
+                        d="M50 88.5L42.75 81.9C17 58.5 0 43.1 0 24C0 8.4 12.4 0 27.5 0C36.1 0 44.35 4 50 10.3C55.65 4 63.9 0 72.5 0C87.6 0 100 8.4 100 24C100 43.1 83 58.5 57.25 82L50 88.5Z"
+                        fill="url(#splashHeartGrad)" />
+                    <defs>
+                        <linearGradient id="splashHeartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#ff5e7e" />
+                            <stop offset="100%" stop-color="#ff9966" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span class="mexico-flag-badge">🇲🇽</span>
+            </div>
+
+            <h2>Una carta especial para Xime 💖</h2>
+            <p class="splash-subtitle">
+                Hoy cumplimos <strong>1 mes de novios</strong> y 1 mes desde nuestro verano inolvidable en México.<br>
+                He preparado algo desde el fondo de mi corazón para ti.
+            </p>
+            <p class="splash-tip">✨ Activa el sonido para una mejor experiencia ✨</p>
+            <button class="btn-primary" id="enterBtn">
+                <span>Abrir con amor 💌</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Ambient floating background elements -->
+    <div class="bg-decorations" id="bgDecorations"></div>
+
+    <!-- Canvas for outro rain effect -->
+    <canvas class="outro-rain-canvas" id="outroRainCanvas"></canvas>
+
+    <!-- Floating music mute/unmute control -->
+    <button class="music-control" id="musicBtn" aria-label="Activar música de fondo" title="Música suave de fondo">
+        <svg viewBox="0 0 24 24" id="musicIconPlay">
+            <path
+                d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h6V3h-8zm8 2v2h-4V5h4zM10 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
+        </svg>
+        <svg viewBox="0 0 24 24" id="musicIconMute" style="display: none;">
+            <path
+                d="M4.27 3L3 4.27l9 9v.28c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4v-1.73l6 6 1.27-1.27L4.27 3zM10 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm10-12h-6V3h8v4h-2V7z" />
+        </svg>
+    </button>
+
+    <!-- Main Container -->
+    <main class="container" id="mainContainer">
+
+        <!-- Header badge -->
+        <div class="header-tag">
+            <span class="tag-pill">🇲🇽 Verano en México ✈️ 1 Mes Juntos ❤️</span>
+        </div>
+
+        <!-- Interactive Envelope Wrapper -->
+        <div class="envelope-wrapper" id="envelopeWrapper" title="Toca para abrir la carta">
+
+            <!-- Sparkles burst canvas -->
+            <canvas class="sparkle-canvas" id="sparkleCanvas"></canvas>
+
+            <!-- Envelope Backing -->
+            <div class="envelope-back"></div>
+
+            <!-- Letter tucked inside -->
+            <div class="letter-inside" id="letterInside">
+                <div class="letter-preview-header">
+                    <span>Para: Xime ❤️</span>
+                </div>
+                <div class="letter-preview-line"></div>
+                <div class="letter-preview-line"></div>
+                <div class="letter-preview-line short"></div>
+                <div class="letter-preview-heart">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Envelope Flaps -->
+            <div class="flap flap-left"></div>
+            <div class="flap flap-right"></div>
+            <div class="flap flap-bottom"></div>
+            <div class="flap flap-top" id="flapTop"></div>
+
+            <!-- Wax Seal Lock / Ribbon -->
+            <div class="envelope-wax-seal" id="waxSeal">
+                <div class="wax-circle">
+                    <div class="wax-inner">
+                        <span class="seal-initials">X & ❤️</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage 4 Pop-up Illustrations -->
+            <div class="popups-container">
+                <!-- Left illustration: Airplane with heart trail -->
+                <div class="popup-illustration popup-left" id="popupLeft">
+                    <svg viewBox="0 0 100 100">
+                        <path d="M10,50 Q30,20 60,35 T90,30" fill="none" stroke="#ff8da1" stroke-width="2"
+                            stroke-dasharray="4,4" />
+                        <path d="M85,22 L98,28 L88,38 L86,30 L85,22 Z" fill="#ff5e7e" />
+                        <path d="M50,75 C40,60 20,60 20,45 C20,35 30,30 40,38 C50,30 60,35 60,45 C60,60 50,75 50,75 Z"
+                            fill="#ff9966" opacity="0.8" />
+                    </svg>
+                    <span class="popup-caption">Sin importar la distancia ✈️</span>
+                </div>
+
+                <!-- Right illustration: Sunset Mexico sun and heart -->
+                <div class="popup-illustration popup-right" id="popupRight">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="30" fill="url(#sunGrad)" />
+                        <path
+                            d="M50 70L44 65C23 46 9 34 9 19C9 6 19 0 31 0 C38 0 45 3 50 8C55 3 62 0 69 0 C81 0 91 6 91 19C91 34 77 46 56 65L50 70Z"
+                            fill="#ff5e7e" transform="translate(0, 10) scale(0.6)" />
+                        <defs>
+                            <linearGradient id="sunGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#ffd166" />
+                                <stop offset="100%" stop-color="#ff7b54" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span class="popup-caption">Verano Inolvidable ☀️</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Instruction text below envelope -->
+        <p class="instruction-text" id="instructionText">
+            <span id="instructionSpan">Toca el sello para abrir tu carta 💌</span>
+        </p>
+
+    </main>
+
+    <!-- Post-Letter Memories & Album Section -->
+    <section class="memories-section" id="memoriesSection">
+        <div class="memories-header">
+            <h3>Nuestros Recuerdos & Un Mes Juntos 📸</h3>
+            <p>Aunque la distancia nos separe por ahora, cada recuerdo contigo me acompaña a diario.</p>
+        </div>
+
+        <!-- Counter Card -->
+        <div class="counter-card">
+            <div class="counter-badge">1 Mes de Novios 💕</div>
+            <div class="counter-grid">
+                <div class="counter-box">
+                    <span class="counter-num" id="countDays">30</span>
+                    <span class="counter-label">Días llenos de amor</span>
+                </div>
+                <div class="counter-box">
+                    <span class="counter-num" id="countHours">720</span>
+                    <span class="counter-label">Horas pensándote</span>
+                </div>
+                <div class="counter-box">
+                    <span class="counter-num" id="countMinutes">43,200</span>
+                    <span class="counter-label">Minutos de recuerdos</span>
+                </div>
+            </div>
+            <div class="counter-footer">
+                <span>📍 México ➔ En el corazón 🇲🇽❤️✈️</span>
+            </div>
+        </div>
+
+        <!-- Polaroid Photos Gallery -->
+        <div class="polaroid-gallery">
+            <div class="polaroid-card">
+                <div class="polaroid-img-wrapper">
+                    <img src="photo1.jpg" alt="Nuestro verano en México">
+                </div>
+                <div class="polaroid-caption">Nuestro verano en México 🇲🇽🌅</div>
+            </div>
+            <div class="polaroid-card tilt-right">
+                <div class="polaroid-img-wrapper">
+                    <img src="photo2.jpg" alt="Recuerdos contigo">
+                </div>
+                <div class="polaroid-caption">Tus fotitos que me acompañan 📸✨</div>
+            </div>
+            <div class="polaroid-card tilt-left">
+                <div class="polaroid-img-wrapper">
+                    <img src="photo3.jpg" alt="Distancia y amor">
+                </div>
+                <div class="polaroid-caption">Seguir construyendo esto ✈️❤️</div>
+            </div>
+        </div>
+
+        <!-- Send Love Hug Interactive Button -->
+        <div class="interactive-hug-container">
+            <button class="btn-hug" id="sendHugBtn">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+                <span>¡Enviarte un abrazo gigante! 🤗💖</span>
+            </button>
+            <p class="hug-counter-text" id="hugCounterText">Has enviado 0 abrazos virtuales a Xime 💌</p>
+        </div>
+    </section>
+
+    <!-- Stage 5: Full Unfolded Letter Overlay -->
+    <div class="full-letter-overlay" id="letterOverlay">
+        <div class="full-letter-paper" id="letterPaper">
+
+            <!-- Header Ribbon Badge -->
+            <div class="header-badge">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+                <span>Para mi amor, Xime</span>
+            </div>
+
+            <!-- Corner Ribbon Vector Accents -->
+            <div class="corner-decor corner-top-left">🌸</div>
+            <div class="corner-decor corner-top-right">🌸</div>
+            <div class="corner-decor corner-bottom-left">✨</div>
+            <div class="corner-decor corner-bottom-right">✨</div>
+
+            <!-- Scrollable Letter Text Container -->
+            <div class="letter-content" id="letterContent">
+                <div class="letter-text" id="letterText"></div>
+            </div>
+
+            <!-- Lower Action Buttons -->
+            <div class="letter-controls">
+                <button class="btn-secondary" id="skipTypingBtn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z" />
+                    </svg>
+                    <span>Mostrar todo</span>
+                </button>
+                <button class="btn-primary" id="closeLetterBtn" style="display: none;">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                    <span>Guardar en el corazón ❤️</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Script loading -->
+    <script src="script.js"></script>
+</body>
+
+</html>
