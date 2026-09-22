@@ -69,6 +69,12 @@
         </svg>
     </button>
 
+    <!-- Quick Floating Yellow Flowers Button -->
+    <button class="yellow-flowers-quick-btn" id="quickFlowersBtn" aria-label="Ver flores amarillas" title="Tus Flores Amarillas 🌻">
+        <span>🌻</span>
+        <div class="badge-dot"></div>
+    </button>
+
     <!-- Main Container -->
     <main class="container" id="mainContainer">
 
@@ -209,6 +215,18 @@
             </div>
         </div>
 
+        <!-- Yellow Flowers Dedicated Card -->
+        <div class="yellow-flowers-card" id="yellowFlowersCard">
+            <div class="flowers-card-sparkle">🌻</div>
+            <div class="flowers-card-badge">✨ Para que NUNCA seas espectadora 💛</div>
+            <h3>Tu Ramo de Flores Amarillas 💐</h3>
+            <p>He preparado un ramo virtual exclusivo para ti. Toca cada flor para descubrir sus secretos y crea tu propio jardín de deseos.</p>
+            <div class="card-screenshot-hint">📸 ¡Mándame fotito de tu jardín! 💖</div>
+            <button class="btn-yellow-flowers" id="openBouquetBtn">
+                <span>Abrir mi Ramo de Flores Amarillas 🌻✨</span>
+            </button>
+        </div>
+
         <!-- Send Love Hug Interactive Button -->
         <div class="interactive-hug-container">
             <button class="btn-hug" id="sendHugBtn">
@@ -263,6 +281,325 @@
                 </button>
             </div>
 
+        </div>
+    </div>
+
+    <!-- Stage 6: Virtual Yellow Flowers Bouquet Modal Overlay -->
+    <div class="flowers-overlay" id="flowersOverlay">
+        <canvas class="flower-rain-canvas" id="flowerRainCanvas"></canvas>
+        
+        <div class="flowers-modal-paper" id="flowersPaper">
+            <button class="close-flowers-btn" id="closeFlowersBtn" aria-label="Cerrar ramo">&times;</button>
+            
+            <div class="flowers-modal-header">
+                <div class="yellow-header-badge">
+                    <span>🌻 Flores Amarillas para Xime 💛</span>
+                </div>
+                <h2>Tu Ramo Virtual Exclusivo 💐</h2>
+                <p class="flowers-subtitle">
+                    Toca cada una de las 7 flores para hacerlas florecer y descubrir sus secretos ✨
+                </p>
+                
+                <div class="flower-progress-box">
+                    <span id="flowerProgressText">Flores descubiertas: 0 / 7 🌟</span>
+                    <div class="progress-track"><div class="progress-fill" id="flowerProgressFill" style="width: 0%;"></div></div>
+                </div>
+            </div>
+
+            <!-- Interactive Bouquet Stage -->
+            <div class="bouquet-stage">
+                <div class="bouquet-glow-bg"></div>
+
+                <!-- SVG Interactive Bouquet -->
+                <svg viewBox="0 0 500 550" class="bouquet-svg" id="bouquetSvg">
+                    <defs>
+                        <linearGradient id="stemGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#66bb6a"/>
+                            <stop offset="100%" stop-color="#2e7d32"/>
+                        </linearGradient>
+                        <linearGradient id="goldRibbonGrad" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#ffe082"/>
+                            <stop offset="50%" stop-color="#ffb300"/>
+                            <stop offset="100%" stop-color="#ff8f00"/>
+                        </linearGradient>
+                        <radialGradient id="sunflowerCenter" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#5d4037"/>
+                            <stop offset="70%" stop-color="#3e2723"/>
+                            <stop offset="100%" stop-color="#1b0000"/>
+                        </radialGradient>
+                    </defs>
+
+                    <!-- Bouquet Wrapping Paper -->
+                    <path d="M 160 320 L 250 520 L 340 320 Q 250 350 160 320 Z" fill="#fffde7" stroke="#ffe082" stroke-width="3" />
+                    <path d="M 140 300 C 140 300 200 420 250 520 C 300 420 360 300 360 300 Q 250 340 140 300 Z" fill="url(#goldRibbonGrad)" opacity="0.2" />
+                    
+                    <!-- Stems -->
+                    <path d="M 230 260 Q 240 380 248 480" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round"/>
+                    <path d="M 250 250 L 250 480" stroke="url(#stemGrad)" stroke-width="8" stroke-linecap="round"/>
+                    <path d="M 270 260 Q 260 380 252 480" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round"/>
+                    <path d="M 190 220 Q 220 340 245 470" stroke="url(#stemGrad)" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M 310 220 Q 280 340 255 470" stroke="url(#stemGrad)" stroke-width="6" stroke-linecap="round"/>
+
+                    <!-- Leaves -->
+                    <path d="M 210 330 Q 170 320 180 350 Q 210 360 220 340 Z" fill="#4caf50" />
+                    <path d="M 290 330 Q 330 320 320 350 Q 290 360 280 340 Z" fill="#388e3c" />
+
+                    <!-- Golden Satin Bow -->
+                    <g transform="translate(250, 460)">
+                        <path d="M 0 0 C -40 -30 -60 10 -15 15 Z" fill="url(#goldRibbonGrad)" />
+                        <path d="M 0 0 C 40 -30 60 10 15 15 Z" fill="url(#goldRibbonGrad)" />
+                        <path d="M -15 12 C -30 50 -35 80 -25 95 C -15 80 -10 50 0 15 Z" fill="url(#goldRibbonGrad)" />
+                        <path d="M 15 12 C 30 50 35 80 25 95 C 15 80 10 50 0 15 Z" fill="url(#goldRibbonGrad)" />
+                        <circle cx="0" cy="5" r="12" fill="#ff8f00" />
+                    </g>
+
+                    <!-- 7 Interactive Flowers -->
+                    <!-- Flower 1: Top Center Sunflower -->
+                    <g class="interactive-flower" data-id="1" transform="translate(250, 130)">
+                        <g class="flower-inner">
+                            <g class="petals-group">
+                                <path d="M0 0 L-10 -55 Q0 -75 10 -55 Z" fill="#ffd54f" />
+                                <path d="M0 0 L-10 -55 Q0 -75 10 -55 Z" fill="#ffca28" transform="rotate(30)" />
+                                <path d="M0 0 L-10 -55 Q0 -75 10 -55 Z" fill="#ffc107" transform="rotate(60)" />
+                                <path d="M0 0 L-10 -55 Q0 -75 10 -55 Z" fill="#ffd54f" transform="rotate(90)" />
+                                <path d="M0 0 L-10 -55 Q0 -75 10 -55 Z" fill="#ffca28" transform="rotate(120)" />
+                                <path d="M0 0 L-10 -55 Q0 -75 10 -55 Z" fill="#ffc107" transform="rotate(150)" />
+                                <path d="M0 0 L-10 -55 Q0 -75 10 -55 Z" fill="#ffd54f" transform="rotate(180)" />
+                                <path d="M0 0 L-10 -55 Q0 -75 10 -55 Z" fill="#ffca28" transform="rotate(210)" />
+                                <path d="M0 0 L-10 -55 Q0 -75 10 -55 Z" fill="#ffc107" transform="rotate(240)" />
+                                <path d="M0 0 L-10 -55 Q0 -75 10 -55 Z" fill="#ffd54f" transform="rotate(270)" />
+                                <path d="M0 0 L-10 -55 Q0 -75 10 -55 Z" fill="#ffca28" transform="rotate(300)" />
+                                <path d="M0 0 L-10 -55 Q0 -75 10 -55 Z" fill="#ffc107" transform="rotate(330)" />
+                            </g>
+                            <circle cx="0" cy="0" r="26" fill="url(#sunflowerCenter)" stroke="#ffa000" stroke-width="3"/>
+                            <circle cx="0" cy="0" r="18" fill="none" stroke="#8d6e63" stroke-dasharray="3,3"/>
+                            <text x="0" y="5" text-anchor="middle" fill="#ffe082" font-size="14" font-weight="bold">1</text>
+                        </g>
+                    </g>
+
+                    <!-- Flower 2: Upper Left Golden Sunflower -->
+                    <g class="interactive-flower" data-id="2" transform="translate(160, 180) rotate(-15)">
+                        <g class="flower-inner">
+                            <g class="petals-group">
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#ffe082" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#ffca28" transform="rotate(36)" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#ffb300" transform="rotate(72)" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#ffe082" transform="rotate(108)" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#ffca28" transform="rotate(144)" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#ffb300" transform="rotate(180)" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#ffe082" transform="rotate(216)" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#ffca28" transform="rotate(252)" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#ffb300" transform="rotate(288)" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#ffe082" transform="rotate(324)" />
+                            </g>
+                            <circle cx="0" cy="0" r="22" fill="url(#sunflowerCenter)" stroke="#ff8f00" stroke-width="2.5"/>
+                            <text x="0" y="5" text-anchor="middle" fill="#ffe082" font-size="13" font-weight="bold">2</text>
+                        </g>
+                    </g>
+
+                    <!-- Flower 3: Upper Right Golden Rose -->
+                    <g class="interactive-flower" data-id="3" transform="translate(340, 180) rotate(15)">
+                        <g class="flower-inner">
+                            <g class="petals-group">
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#fff176" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#ffd54f" transform="rotate(36)" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#ffc107" transform="rotate(72)" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#fff176" transform="rotate(108)" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#ffd54f" transform="rotate(144)" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#ffc107" transform="rotate(180)" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#fff176" transform="rotate(216)" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#ffd54f" transform="rotate(252)" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#ffc107" transform="rotate(288)" />
+                                <path d="M0 0 L-9 -48 Q0 -65 9 -48 Z" fill="#fff176" transform="rotate(324)" />
+                            </g>
+                            <circle cx="0" cy="0" r="22" fill="url(#sunflowerCenter)" stroke="#ff8f00" stroke-width="2.5"/>
+                            <text x="0" y="5" text-anchor="middle" fill="#ffe082" font-size="13" font-weight="bold">3</text>
+                        </g>
+                    </g>
+
+                    <!-- Flower 4: Mid Left Daisy -->
+                    <g class="interactive-flower" data-id="4" transform="translate(120, 260) rotate(-30)">
+                        <g class="flower-inner">
+                            <g class="petals-group">
+                                <path d="M0 0 L-8 -42 Q0 -58 8 -42 Z" fill="#ffeb3b" />
+                                <path d="M0 0 L-8 -42 Q0 -58 8 -42 Z" fill="#fdd835" transform="rotate(45)" />
+                                <path d="M0 0 L-8 -42 Q0 -58 8 -42 Z" fill="#fbc02d" transform="rotate(90)" />
+                                <path d="M0 0 L-8 -42 Q0 -58 8 -42 Z" fill="#ffeb3b" transform="rotate(135)" />
+                                <path d="M0 0 L-8 -42 Q0 -58 8 -42 Z" fill="#fdd835" transform="rotate(180)" />
+                                <path d="M0 0 L-8 -42 Q0 -58 8 -42 Z" fill="#fbc02d" transform="rotate(225)" />
+                                <path d="M0 0 L-8 -42 Q0 -58 8 -42 Z" fill="#ffeb3b" transform="rotate(270)" />
+                                <path d="M0 0 L-8 -42 Q0 -58 8 -42 Z" fill="#fdd835" transform="rotate(315)" />
+                            </g>
+                            <circle cx="0" cy="0" r="18" fill="url(#sunflowerCenter)" stroke="#f57f17" stroke-width="2"/>
+                            <text x="0" y="4" text-anchor="middle" fill="#ffe082" font-size="12" font-weight="bold">4</text>
+                        </g>
+                    </g>
+
+                    <!-- Flower 5: Center Heart Sunflower -->
+                    <g class="interactive-flower" data-id="5" transform="translate(250, 240)">
+                        <g class="flower-inner">
+                            <g class="petals-group">
+                                <path d="M0 0 L-11 -58 Q0 -80 11 -58 Z" fill="#ffee58" />
+                                <path d="M0 0 L-11 -58 Q0 -80 11 -58 Z" fill="#fdd835" transform="rotate(30)" />
+                                <path d="M0 0 L-11 -58 Q0 -80 11 -58 Z" fill="#fbc02d" transform="rotate(60)" />
+                                <path d="M0 0 L-11 -58 Q0 -80 11 -58 Z" fill="#ffee58" transform="rotate(90)" />
+                                <path d="M0 0 L-11 -58 Q0 -80 11 -58 Z" fill="#fdd835" transform="rotate(120)" />
+                                <path d="M0 0 L-11 -58 Q0 -80 11 -58 Z" fill="#fbc02d" transform="rotate(150)" />
+                                <path d="M0 0 L-11 -58 Q0 -80 11 -58 Z" fill="#ffee58" transform="rotate(180)" />
+                                <path d="M0 0 L-11 -58 Q0 -80 11 -58 Z" fill="#fdd835" transform="rotate(210)" />
+                                <path d="M0 0 L-11 -58 Q0 -80 11 -58 Z" fill="#fbc02d" transform="rotate(240)" />
+                                <path d="M0 0 L-11 -58 Q0 -80 11 -58 Z" fill="#ffee58" transform="rotate(270)" />
+                                <path d="M0 0 L-11 -58 Q0 -80 11 -58 Z" fill="#fdd835" transform="rotate(300)" />
+                                <path d="M0 0 L-11 -58 Q0 -80 11 -58 Z" fill="#fbc02d" transform="rotate(330)" />
+                            </g>
+                            <circle cx="0" cy="0" r="28" fill="url(#sunflowerCenter)" stroke="#ff8f00" stroke-width="3"/>
+                            <path d="M 0 8 L -2.4 4.8 C -6.4 0.8 -9.6 -2.4 -9.6 -6.4 C -9.6 -9.6 -7.2 -12 -4 -12 C -1.6 -12 0 -10.4 0 -10.4 C 0 -10.4 1.6 -12 4 -12 C 7.2 -12 9.6 -9.6 9.6 -6.4 C 9.6 -2.4 6.4 0.8 2.4 4.8 L 0 8 Z" fill="#ff5e7e"/>
+                            <text x="0" y="4" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">5</text>
+                        </g>
+                    </g>
+
+                    <!-- Flower 6: Mid Right Golden Sunflower -->
+                    <g class="interactive-flower" data-id="6" transform="translate(380, 260) rotate(30)">
+                        <g class="flower-inner">
+                            <g class="petals-group">
+                                <path d="M0 0 L-8 -42 Q0 -58 8 -42 Z" fill="#ffd54f" />
+                                <path d="M0 0 L-8 -42 Q0 -58 8 -42 Z" fill="#ffc107" transform="rotate(45)" />
+                                <path d="M0 0 L-8 -42 Q0 -58 8 -42 Z" fill="#ffa000" transform="rotate(90)" />
+                                <path d="M0 0 L-8 -42 Q0 -58 8 -42 Z" fill="#ffd54f" transform="rotate(135)" />
+                                <path d="M0 0 L-8 -42 Q0 -58 8 -42 Z" fill="#ffc107" transform="rotate(180)" />
+                                <path d="M0 0 L-8 -42 Q0 -58 8 -42 Z" fill="#ffa000" transform="rotate(225)" />
+                                <path d="M0 0 L-8 -42 Q0 -58 8 -42 Z" fill="#ffd54f" transform="rotate(270)" />
+                                <path d="M0 0 L-8 -42 Q0 -58 8 -42 Z" fill="#ffc107" transform="rotate(315)" />
+                            </g>
+                            <circle cx="0" cy="0" r="18" fill="url(#sunflowerCenter)" stroke="#f57f17" stroke-width="2"/>
+                            <text x="0" y="4" text-anchor="middle" fill="#ffe082" font-size="12" font-weight="bold">6</text>
+                        </g>
+                    </g>
+
+                    <!-- Flower 7: Lower Center Golden Sunflower -->
+                    <g class="interactive-flower" data-id="7" transform="translate(250, 330)">
+                        <g class="flower-inner">
+                            <g class="petals-group">
+                                <path d="M0 0 L-9 -50 Q0 -70 9 -50 Z" fill="#ffca28" />
+                                <path d="M0 0 L-9 -50 Q0 -70 9 -50 Z" fill="#ffb300" transform="rotate(36)" />
+                                <path d="M0 0 L-9 -50 Q0 -70 9 -50 Z" fill="#ff8f00" transform="rotate(72)" />
+                                <path d="M0 0 L-9 -50 Q0 -70 9 -50 Z" fill="#ffca28" transform="rotate(108)" />
+                                <path d="M0 0 L-9 -50 Q0 -70 9 -50 Z" fill="#ffb300" transform="rotate(144)" />
+                                <path d="M0 0 L-9 -50 Q0 -70 9 -50 Z" fill="#ff8f00" transform="rotate(180)" />
+                                <path d="M0 0 L-9 -50 Q0 -70 9 -50 Z" fill="#ffca28" transform="rotate(216)" />
+                                <path d="M0 0 L-9 -50 Q0 -70 9 -50 Z" fill="#ffb300" transform="rotate(252)" />
+                                <path d="M0 0 L-9 -50 Q0 -70 9 -50 Z" fill="#ff8f00" transform="rotate(288)" />
+                                <path d="M0 0 L-9 -50 Q0 -70 9 -50 Z" fill="#ffca28" transform="rotate(324)" />
+                            </g>
+                            <circle cx="0" cy="0" r="24" fill="url(#sunflowerCenter)" stroke="#ff6f00" stroke-width="2.5"/>
+                            <text x="0" y="5" text-anchor="middle" fill="#ffe082" font-size="13" font-weight="bold">7</text>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- Popover Secret Note Box -->
+            <div class="flower-note-popover" id="flowerNotePopover">
+                <div class="popover-paper">
+                    <button class="popover-close-btn" id="popoverCloseBtn" aria-label="Cerrar nota">&times;</button>
+                    <div class="popover-badge" id="popoverBadge">Flor #1 🌻</div>
+                    <h4 class="popover-title" id="popoverTitle">Título de la Flor</h4>
+                    <p class="popover-body" id="popoverBody">Mensaje secreto de esta flor...</p>
+                </div>
+            </div>
+
+            <!-- Flowers Controls -->
+            <div class="flowers-controls">
+                <button class="btn-yellow-action" id="triggerPetalRainBtn">
+                    <span>✨ Lluvia de Flores Amarillas</span>
+                </button>
+                <button class="btn-yellow-magic" id="openGardenBtn">
+                    <span>🌱 Crear Jardín Mágico 🌻</span>
+                </button>
+                <button class="btn-yellow-secondary" id="openDedicationCardBtn">
+                    <span>📜 Carta de Dedicatoria</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dedication Card Modal -->
+    <div class="dedication-modal" id="dedicationModal">
+        <div class="dedication-card-paper">
+            <button class="close-dedication-btn" id="closeDedicationBtn" aria-label="Cerrar carta">&times;</button>
+            <div class="dedication-badge">🌻 Para Xime 💛</div>
+            <h3>Para que jamás seas espectadora</h3>
+            <div class="dedication-body">
+                <p>
+                    Hoy quise regalarte este ramo de flores amarillas porque quiero que recuerdes algo muy importante: 
+                    <strong>no hay pantalla ni distancia capaz de quitarte el lugar principal en mi corazón.</strong>
+                </p>
+                <p>
+                    Mereces recibir tus flores hoy, mañana y siempre. Mereces sentir la calidez de saber que hay alguien que piensa en ti con una sonrisa gigante y que hace todo para verte feliz.
+                </p>
+                <p class="dedication-quote">
+                    "Gracias por iluminar mi vida con tu luz, exactamente como lo hacen las flores amarillas." ☀️🌻
+                </p>
+            </div>
+            <div class="dedication-footer">
+                <span>Con todo mi amor ❤️</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stage 7: Interactive Garden Modal Overlay -->
+    <div class="garden-modal-overlay" id="gardenModal">
+        <canvas class="garden-canvas" id="gardenCanvas"></canvas>
+        
+        <button class="close-garden-btn" id="closeGardenBtn" aria-label="Cerrar jardín">&times;</button>
+        
+        <div class="garden-ui-header">
+            <div class="garden-badge">✨ Jardín Mágico 🌻</div>
+            <div class="garden-screenshot-badge">📸 ¡Mándame fotito! 💖</div>
+            <span class="garden-count" id="gardenCountText">Girasoles florecidos: 0 🌻</span>
+        </div>
+
+        <div class="garden-ui-controls">
+            <button class="btn-garden-bloom" id="bloomFullGardenBtn">
+                <span>🌻 Florecer Todo ✨</span>
+            </button>
+            <button class="btn-garden-wish" id="openWishBtn">
+                <span>💌 Pedir Deseo 🌟</span>
+            </button>
+            <button class="btn-garden-clear" id="clearGardenBtn">
+                <span>✨ Limpiar</span>
+            </button>
+        </div>
+
+        <!-- Milestone 50-Flowers Celebration Toast Popup -->
+        <div class="garden-milestone-toast" id="gardenMilestoneToast">
+            <div class="milestone-badge">🎉 ¡HITO MÁGICO DE AMOR! 🌻</div>
+            <h4 id="milestoneTitle">¡50 Girasoles para Xime! 💛</h4>
+            <p id="milestoneBody">Cada girasol que florece es un motivo más por el que me encantas... ¡Tu jardín está hermoso! ✨</p>
+        </div>
+    </div>
+
+    <!-- Wish Modal Overlay -->
+    <div class="wish-modal-overlay" id="wishModal">
+        <div class="wish-card-paper">
+            <button class="close-wish-btn" id="closeWishBtn" aria-label="Cerrar deseo">&times;</button>
+            <div class="wish-badge">✨ Deseo Mágico de Flores 🌟</div>
+            <h3>Pide un deseo para nuestro jardín</h3>
+            <p class="wish-subtitle">Escribe un deseo o un mensaje de amor. Florecerá como un girasol gigante en el cielo nocturno ✨</p>
+            
+            <div class="wish-input-wrapper">
+                <input type="text" id="wishInput" placeholder="Ej: Que sigamos juntos por siempre... 💕" maxlength="60" />
+            </div>
+
+            <div class="wish-quick-tags">
+                <span class="wish-tag" data-text="Que sigamos construyendo este amor bonito 💖">💖 Amor Bonito</span>
+                <span class="wish-tag" data-text="Te extraño mucho y pronto nos veremos ✈️">✈️ Volver a Vernos</span>
+                <span class="wish-tag" data-text="Gracias por ser mi lugar favorito 🌻">🌻 Mi Lugar Favorito</span>
+            </div>
+
+            <button class="btn-send-wish" id="sendWishBtn">
+                <span>Hacer Florecer Mi Deseo 🌻✨</span>
+            </button>
         </div>
     </div>
 

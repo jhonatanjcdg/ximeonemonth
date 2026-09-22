@@ -77,7 +77,8 @@ body {
     position: absolute;
     opacity: 0.7;
     animation: float-around infinite ease-in-out;
-    filter: drop-shadow(0 4px 10px rgba(255, 123, 84, 0.2));
+    pointer-events: none;
+    will-change: transform, opacity;
 }
 
 @keyframes float-around {
@@ -1019,3 +1020,1061 @@ body {
         width: 280px;
     }
 }
+
+/* --------------------------------------------------------------------------
+   Quick Yellow Flowers Floating Button
+   -------------------------------------------------------------------------- */
+.yellow-flowers-quick-btn {
+    position: fixed;
+    top: 84px;
+    right: 20px;
+    z-index: 100;
+    background: linear-gradient(135deg, #fff9c4 0%, #ffe082 50%, #ffd54f 100%);
+    border: 3px solid #ffb300;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(255, 179, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    width: 52px;
+    height: 52px;
+    font-size: 24px;
+}
+
+.yellow-flowers-quick-btn:hover {
+    transform: scale(1.15) rotate(15deg);
+    box-shadow: 0 12px 30px rgba(255, 179, 0, 0.6);
+}
+
+.yellow-flowers-quick-btn .badge-dot {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 14px;
+    height: 14px;
+    background: #ff5e7e;
+    border: 2px solid white;
+    border-radius: 50%;
+    animation: pulse-dot 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+/* --------------------------------------------------------------------------
+   Yellow Flowers Dedicated Card in Memories Section
+   -------------------------------------------------------------------------- */
+.yellow-flowers-card {
+    background: linear-gradient(135deg, #fffde7 0%, #fff59d 50%, #ffe082 100%);
+    border: 3px solid #ffca28;
+    border-radius: var(--radius-cute);
+    padding: 32px 24px;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 40px;
+    box-shadow: 0 14px 35px rgba(255, 193, 7, 0.25);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.yellow-flowers-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 45px rgba(255, 193, 7, 0.35);
+}
+
+.flowers-card-sparkle {
+    font-size: 42px;
+    margin-bottom: 12px;
+    animation: gentle-bounce 2s infinite ease-in-out;
+}
+
+@keyframes gentle-bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1.1); }
+}
+
+.flowers-card-badge {
+    display: inline-block;
+    background: #ff8f00;
+    color: white;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 6px 18px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 12px rgba(255, 143, 0, 0.3);
+}
+
+.yellow-flowers-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.7rem;
+    color: #5d4037;
+    margin-bottom: 10px;
+}
+
+.yellow-flowers-card p {
+    font-size: 1rem;
+    color: #6d4c41;
+    line-height: 1.5;
+    margin-bottom: 22px;
+}
+
+.btn-yellow-flowers {
+    background: linear-gradient(135deg, #ffca28 0%, #ff8f00 100%);
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 14px 32px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 22px rgba(255, 143, 0, 0.4);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.btn-yellow-flowers:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 14px 30px rgba(255, 143, 0, 0.55);
+}
+
+/* --------------------------------------------------------------------------
+   Stage 6: Yellow Flowers Modal Overlay
+   -------------------------------------------------------------------------- */
+.flowers-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(62, 39, 35, 0.65);
+    backdrop-filter: blur(12px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 150;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+    padding: 20px;
+}
+
+.flowers-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.flower-rain-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.flowers-modal-paper {
+    background: radial-gradient(circle at 50% 30%, #fffde7 0%, #fff9c4 60%, #ffe082 100%);
+    width: 100%;
+    max-width: 650px;
+    max-height: 90vh;
+    border-radius: var(--radius-cute);
+    border: 8px double #ffca28;
+    box-shadow: 0 25px 60px rgba(255, 143, 0, 0.35);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    transform: scale(0.85) translateY(30px);
+    transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 20;
+    padding: 30px 24px 24px 24px;
+}
+
+.flowers-overlay.active .flowers-modal-paper {
+    transform: scale(1) translateY(0);
+}
+
+.close-flowers-btn {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid #ffb300;
+    color: #8d6e63;
+    font-size: 26px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    z-index: 30;
+}
+
+.close-flowers-btn:hover {
+    background: #ff8f00;
+    color: white;
+    transform: rotate(90deg);
+}
+
+.flowers-modal-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.yellow-header-badge span {
+    background: linear-gradient(135deg, #ffca28 0%, #ff8f00 100%);
+    color: white;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 6px 20px;
+    border-radius: 25px;
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(255, 143, 0, 0.3);
+}
+
+.flowers-modal-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: #4e342e;
+    margin: 10px 0 6px 0;
+}
+
+.flowers-subtitle {
+    font-size: 0.95rem;
+    color: #795548;
+    margin-bottom: 14px;
+}
+
+.flower-progress-box {
+    background: rgba(255, 255, 255, 0.85);
+    border: 2px solid #ffe082;
+    padding: 10px 16px;
+    border-radius: 20px;
+    display: inline-block;
+    max-width: 320px;
+    width: 100%;
+}
+
+#flowerProgressText {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #e65100;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.progress-track {
+    width: 100%;
+    height: 8px;
+    background: #fff59d;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ffca28, #ff8f00);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+/* Bouquet Stage & SVG Interactive Flowers */
+.bouquet-stage {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bouquet-glow-bg {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(255, 235, 59, 0.45) 0%, rgba(255, 193, 7, 0.15) 50%, transparent 70%);
+    border-radius: 50%;
+    animation: bouquet-pulse 3s infinite ease-in-out;
+    pointer-events: none;
+}
+
+@keyframes bouquet-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.12); opacity: 1; }
+}
+
+.bouquet-svg {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 12px 25px rgba(141, 110, 99, 0.2));
+    z-index: 5;
+}
+
+.interactive-flower {
+    cursor: pointer;
+}
+
+.interactive-flower .flower-inner {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    will-change: transform;
+}
+
+.interactive-flower:hover .flower-inner {
+    transform: scale(1.15);
+}
+
+.interactive-flower.bloomed .flower-inner {
+    animation: flower-smooth-pulse 2.2s infinite ease-in-out;
+}
+
+@keyframes flower-smooth-pulse {
+    0%, 100% {
+        transform: scale(1.08);
+    }
+    50% {
+        transform: scale(1.16);
+    }
+}
+
+/* Popover Secret Note Box */
+.flower-note-popover {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.7);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 40;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: 90%;
+    max-width: 380px;
+}
+
+.flower-note-popover.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popover-paper {
+    background: #ffffff;
+    border: 3px solid #ffca28;
+    border-radius: var(--radius-card);
+    padding: 24px 20px;
+    box-shadow: 0 15px 40px rgba(93, 64, 55, 0.35);
+    text-align: center;
+    position: relative;
+}
+
+.popover-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    color: #a1887f;
+    cursor: pointer;
+}
+
+.popover-badge {
+    background: #fff3e0;
+    color: #e65100;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 4px 12px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.popover-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: #ff8f00;
+    margin-bottom: 10px;
+}
+
+.popover-body {
+    font-family: var(--font-handwritten);
+    font-size: 1.5rem;
+    color: #4e342e;
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+/* Flowers Control Buttons */
+.flowers-controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+    z-index: 10;
+}
+
+.btn-yellow-action {
+    background: linear-gradient(135deg, #ffb300 0%, #ff6f00 100%);
+    color: white;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 12px 22px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(255, 143, 0, 0.35);
+    transition: all 0.3s ease;
+}
+
+.btn-yellow-action:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 24px rgba(255, 143, 0, 0.45);
+}
+
+.btn-yellow-secondary {
+    background: #ffffff;
+    color: #ff8f00;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 2px solid #ffca28;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-yellow-secondary:hover {
+    background: #fffde7;
+    transform: translateY(-2px);
+}
+
+/* Dedication Card Modal */
+.dedication-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(62, 39, 35, 0.55);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+    padding: 20px;
+}
+
+.dedication-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.dedication-card-paper {
+    background: #fffdf7;
+    border: 4px solid #ffe082;
+    border-radius: var(--radius-cute);
+    box-shadow: 0 20px 50px rgba(93, 64, 55, 0.4);
+    max-width: 480px;
+    width: 100%;
+    padding: 36px 28px 28px 28px;
+    text-align: center;
+    position: relative;
+    transform: scale(0.85);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.dedication-modal.active .dedication-card-paper {
+    transform: scale(1);
+}
+
+.close-dedication-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #a1887f;
+    cursor: pointer;
+}
+
+.dedication-badge {
+    background: linear-gradient(135deg, #ffca28, #ff8f00);
+    color: white;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.88rem;
+    padding: 5px 16px;
+    border-radius: 15px;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.dedication-card-paper h3 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: #4e342e;
+    margin-bottom: 16px;
+}
+
+.dedication-body p {
+    font-size: 1rem;
+    color: #5d4037;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.dedication-quote {
+    font-family: var(--font-handwritten);
+    font-size: 1.45rem;
+    color: #e65100;
+    font-weight: 700;
+    margin-top: 14px;
+}
+
+.dedication-footer {
+    margin-top: 20px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #ff8f00;
+}
+
+/* --------------------------------------------------------------------------
+   Button & Modal: Jardín Mágico de Flores Amarillas
+   -------------------------------------------------------------------------- */
+.btn-yellow-magic {
+    background: linear-gradient(135deg, #ffd54f 0%, #ff8f00 50%, #e65100 100%);
+    color: white;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 12px 24px;
+    border-radius: 30px;
+    border: 2px solid #fff59d;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255, 179, 0, 0.45);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: btn-gold-glow 2.5s infinite ease-in-out;
+}
+
+@keyframes btn-gold-glow {
+    0%, 100% { box-shadow: 0 6px 20px rgba(255, 179, 0, 0.45); }
+    50% { box-shadow: 0 10px 30px rgba(255, 235, 59, 0.8); }
+}
+
+.btn-yellow-magic:hover {
+    transform: translateY(-3px) scale(1.05);
+}
+
+.garden-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at 50% 30%, #1a102f 0%, #0d061a 60%, #05020a 100%);
+    z-index: 300;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    overflow: hidden;
+}
+
+.garden-modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.garden-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    cursor: crosshair;
+}
+
+.close-garden-btn {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 224, 130, 0.6);
+    color: #fffde7;
+    font-size: 28px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    z-index: 320;
+}
+
+.close-garden-btn:hover {
+    background: #ffb300;
+    color: #212121;
+    transform: rotate(90deg);
+}
+
+.garden-ui-header {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 310;
+    pointer-events: none;
+    width: 90%;
+    max-width: 500px;
+}
+
+.garden-badge {
+    background: rgba(255, 248, 225, 0.15);
+    backdrop-filter: blur(12px);
+    color: #ffe082;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 8px 24px;
+    border-radius: 30px;
+    border: 2px solid rgba(255, 224, 130, 0.4);
+    display: inline-block;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    margin-bottom: 8px;
+}
+
+.garden-hint {
+    font-size: 0.9rem;
+    color: #fff9c4;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    margin-bottom: 6px;
+}
+
+.garden-screenshot-badge {
+    background: linear-gradient(135deg, rgba(255, 94, 126, 0.25) 0%, rgba(255, 179, 0, 0.25) 100%);
+    backdrop-filter: blur(8px);
+    color: #fffde7;
+    border: 1px solid rgba(255, 224, 130, 0.6);
+    padding: 3px 10px;
+    border-radius: 14px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    margin: 3px auto 5px auto;
+    display: inline-block;
+    box-shadow: 0 2px 10px rgba(255, 94, 126, 0.25);
+    animation: screenshot-pulse 2.5s infinite ease-in-out;
+}
+
+@keyframes screenshot-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.92; }
+    50% { transform: scale(1.03); opacity: 1; }
+}
+
+.card-screenshot-hint {
+    background: #fff8e1;
+    color: #e65100;
+    border: 1px dashed #ffe082;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: inline-block;
+}
+
+.garden-count {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ffd54f;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 4px 14px;
+    border-radius: 12px;
+}
+
+.garden-ui-controls {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 14px;
+    z-index: 310;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-garden-bloom {
+    background: linear-gradient(135deg, #ffca28 0%, #ff8f00 100%);
+    color: white;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 12px 24px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(255, 179, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.btn-garden-bloom:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 12px 30px rgba(255, 179, 0, 0.7);
+}
+
+.btn-garden-clear {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    color: #ffe082;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 224, 130, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-garden-clear:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   Wish Modal & Interactive Wish Buttons
+   -------------------------------------------------------------------------- */
+.btn-garden-wish {
+    background: linear-gradient(135deg, #ff4b72 0%, #ff7b54 100%);
+    color: white;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 12px 24px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(255, 75, 114, 0.45);
+    transition: all 0.3s ease;
+}
+
+.btn-garden-wish:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 12px 30px rgba(255, 75, 114, 0.65);
+}
+
+.wish-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(13, 6, 26, 0.75);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 400;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+    padding: 20px;
+}
+
+.wish-modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.wish-card-paper {
+    background: #ffffff;
+    border: 4px solid #ffe082;
+    border-radius: var(--radius-cute);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    max-width: 460px;
+    width: 100%;
+    padding: 32px 24px 24px 24px;
+    text-align: center;
+    position: relative;
+    transform: scale(0.85);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.wish-modal-overlay.active .wish-card-paper {
+    transform: scale(1);
+}
+
+.close-wish-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #a1887f;
+    cursor: pointer;
+}
+
+.wish-badge {
+    background: linear-gradient(135deg, #ffca28, #ff8f00);
+    color: white;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.88rem;
+    padding: 5px 16px;
+    border-radius: 15px;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.wish-card-paper h3 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: #4e342e;
+    margin-bottom: 8px;
+}
+
+.wish-subtitle {
+    font-size: 0.92rem;
+    color: #6d4c41;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.wish-input-wrapper input {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 14px;
+    border: 2px solid #ffe082;
+    font-family: var(--font-handwritten);
+    font-size: 1.4rem;
+    color: #4e342e;
+    outline: none;
+    margin-bottom: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.wish-input-wrapper input:focus {
+    border-color: #ff8f00;
+}
+
+.wish-quick-tags {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.wish-tag {
+    background: #fff8e1;
+    color: #e65100;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 12px;
+    border: 1px solid #ffe082;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.wish-tag:hover {
+    background: #ffecb3;
+    transform: translateY(-2px);
+}
+
+.btn-send-wish {
+    background: linear-gradient(135deg, #ffca28 0%, #ff8f00 100%);
+    color: white;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 14px 32px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(255, 143, 0, 0.4);
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.btn-send-wish:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(255, 143, 0, 0.55);
+}
+
+/* Mobile responsive adjustments for Garden & Wish Modals */
+@media (max-width: 600px) {
+    .garden-ui-header {
+        top: 6px;
+        width: 90%;
+        max-width: 320px;
+    }
+
+    .garden-badge {
+        font-size: 0.72rem;
+        padding: 3px 10px;
+        margin-bottom: 2px;
+    }
+
+    .garden-screenshot-badge {
+        font-size: 0.65rem;
+        padding: 2px 8px;
+        margin: 2px auto;
+    }
+
+    .garden-count {
+        font-size: 0.68rem;
+        padding: 2px 8px;
+    }
+
+    .close-garden-btn {
+        top: 6px;
+        right: 6px;
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+        z-index: 350;
+    }
+
+    .garden-ui-controls {
+        bottom: 10px;
+        gap: 5px;
+        width: 96%;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+
+    .btn-garden-bloom,
+    .btn-garden-wish,
+    .btn-garden-clear {
+        padding: 8px 6px;
+        font-size: 0.72rem;
+        border-radius: 20px;
+        flex: 1;
+        max-width: 115px;
+        text-align: center;
+        white-space: nowrap;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .wish-card-paper {
+        padding: 20px 14px 14px 14px;
+        max-width: 92vw;
+    }
+
+    .wish-card-paper h3 {
+        font-size: 1.25rem;
+    }
+
+    .wish-input-wrapper input {
+        font-size: 1.1rem;
+        padding: 8px 12px;
+    }
+
+    .wish-tag {
+        font-size: 0.74rem;
+        padding: 4px 8px;
+    }
+}
+
+/* 50-Flower Milestone Popup Banner */
+.garden-milestone-toast {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.6);
+    background: linear-gradient(135deg, rgba(20, 10, 30, 0.95) 0%, rgba(45, 20, 60, 0.95) 100%);
+    backdrop-filter: blur(14px);
+    border: 3px solid #ffd54f;
+    border-radius: 24px;
+    padding: 24px 28px;
+    text-align: center;
+    box-shadow: 0 15px 45px rgba(255, 179, 0, 0.5), 0 0 35px rgba(255, 215, 0, 0.35);
+    z-index: 340;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-width: 360px;
+    width: 88%;
+}
+
+.garden-milestone-toast.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
+}
+
+.milestone-badge {
+    background: linear-gradient(135deg, #ffca28, #ff8f00);
+    color: white;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 4px 14px;
+    border-radius: 14px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.garden-milestone-toast h4 {
+    font-family: var(--font-heading);
+    font-size: 1.45rem;
+    color: #ffe082;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 8px rgba(255, 143, 0, 0.6);
+}
+
+.garden-milestone-toast p {
+    font-family: var(--font-handwritten);
+    font-size: 1.35rem;
+    color: #ffffff;
+    line-height: 1.35;
+}
+
+@media (max-width: 600px) {
+    .garden-milestone-toast {
+        padding: 18px 16px;
+        max-width: 290px;
+    }
+    .garden-milestone-toast h4 {
+        font-size: 1.2rem;
+    }
+    .garden-milestone-toast p {
+        font-size: 1.15rem;
+    }
+}
+
